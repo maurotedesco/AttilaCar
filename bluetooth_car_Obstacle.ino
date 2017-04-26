@@ -99,6 +99,67 @@ void setup()
 }
 void loop()
   { 
+
+    myservo.write(90);//setservo position according to scaled value
+    delay(500); 
+    middleDistance = Distance_test();
+    #ifdef send
+    Serial.print("middleDistance=");
+    Serial.println(middleDistance);
+    #endif
+     
+    if(middleDistance<=20)
+    {     
+      _mStop();
+      delay(500);                         
+      myservo.write(5);          
+      delay(1000);      
+      rightDistance = Distance_test();
+
+      #ifdef send
+      Serial.print("rightDistance=");
+      Serial.println(rightDistance);
+      #endif
+
+      delay(500);
+       myservo.write(90);              
+      delay(1000);                                                  
+      myservo.write(180);              
+      delay(1000); 
+      leftDistance = Distance_test();
+
+      #ifdef send
+      Serial.print("leftDistance=");
+      Serial.println(leftDistance);
+      #endif
+
+      delay(500);
+      myservo.write(90);              
+      delay(1000);
+      if(rightDistance>leftDistance)  
+      {
+        _mright();
+        delay(360);
+       }
+       else if(rightDistance<leftDistance)
+       {
+        _mleft();
+        delay(360);
+       }
+       else if((rightDistance<=20)||(leftDistance<=20))
+       {
+        _mBack();
+        delay(180);
+       }
+       else
+       {
+        _mForward();
+         delay(360);
+       }
+    }  
+    else  // distanza maggiore di 20
+        _mForward();
+         delay(360); 
       
   getstr=Serial.read();
   if(getstr=='f')
@@ -190,4 +251,3 @@ void loop()
   stateChange();
   }
 }
-
