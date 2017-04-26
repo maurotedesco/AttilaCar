@@ -99,7 +99,10 @@ void setup()
 }
 void loop()
   { 
-    
+      
+  getstr=Serial.read();
+  if(getstr=='f')
+  { // loop principale
     myservo.write(90);//setservo position according to scaled value
     delay(500); 
     middleDistance = Distance_test();
@@ -108,7 +111,6 @@ void loop()
     Serial.println(middleDistance);
     #endif
      
-
     if(middleDistance<=20)
     {     
       _mStop();
@@ -160,13 +162,8 @@ void loop()
     }  
     else
         _mForward();
-         delay(360);  
-    
-  getstr=Serial.read();
- if(getstr=='f')
-  {
-    _mForward();
-  }
+         delay(360); 
+  } // fine Ciclo Forward 
   else if(getstr=='b')
   {
     _mBack();
