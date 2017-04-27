@@ -1,7 +1,7 @@
 //www.elegoo.com
 //2016.09.19
 // Modify by Mauro for insert control by ping
-// Versione 1.0 del 28 4 2017
+// Versione 1.0 del 26 4 2017
 #include <Servo.h> //servo library
 Servo myservo; // create servo object to control servo
 int Echo = A4;  
